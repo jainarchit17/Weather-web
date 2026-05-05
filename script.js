@@ -110,6 +110,8 @@ function updateCurrentWeatherUI(data) {
     // Extreme Temp Alert
     const alertBox = document.getElementById('extremeAlert');
     data.main.temp > 40 ? alertBox.classList.remove('hidden') : alertBox.classList.add('hidden');
+
+    
 }
 function updateForecastUI(data) {
     const container = document.getElementById('forecastContainer');
