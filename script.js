@@ -66,3 +66,13 @@ async function fetchWeatherByCoordinates(lat, lon){
     } catch (error) {
         showError(error.message);
     }}
+async function fetch5DayForecast(lat, lon){
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API}&units=metric`);
+        if(!response.ok) throw new Error("Unable to fetch 5-day forecast data.");
+        const data = await response.json();
+        updateForecastUI(data);
+    } catch (error) {
+        showError(error.message);
+    }}
+
