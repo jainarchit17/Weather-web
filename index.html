@@ -13,7 +13,56 @@
     id="mainBody"
     class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen p-4 md:p-8 transition-colors duration-700 text-white font-sans"
   >
-    
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div class="glass-card p-6 rounded-2xl shadow-xl lg:col-span-1 h-fit">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <i class="bx bx-cloud-sun"></i>WeatherDash
+        </h2>
+        <div class="relative mb-4">
+          <input
+            type="text"
+            id="cityInput"
+            placeholder="E.g., London, Tokyo"
+            class="w-full p-3 pl-10 rounded-xl bg-white/20 border border-white/30 placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 text-white"
+          />
+          <i class="bx bx-search absolute left-4 top-4 text-white/70"></i>
+        </div>
+        <button
+          id="searchBtn"
+          class="w-full bg-blue-500 hover:bg-blue-700 transition-colors p-3 rounded-xl font-bold shadow-lg mb-4"
+        >
+          Search City
+        </button>
+        <div class="flex items-center my-4">
+          <div class="flex-grow h-px bg-white/30"></div>
+          <span class="px-3 text-sm text-white/70">OR</span>
+          <div class="flex-grow h-px bg-white/30"></div>
+        </div>
+        <button
+          id="currentBtn"
+          class="w-full bg-white hover:bg-white transition-colors p-3 rounded-xl font-bold border border-white flex items-center justify-center gap-2 text-gray-700"
+        >
+          <i class="bx bx-location-plus"></i> Use Current Location
+        </button>
+        <div
+          id="errBox"
+          class="hidden mt-6 p-4 bg-red-500 border-l-4 border-red-900 rounded-lg text-sm font-medium backdrop-blur-sm"
+        ></div>
+        <div id="recents" class="hidden mt-8">
+          <h3
+            class="text-sm font-semibold uppercase tracking-wider bg-white/10 mb-3 border-b border-white pb-2"
+          >
+            Recent Searches
+          </h3>
+          <select
+            name=""
+            id="recentDrop"
+            class="w-full p-3 rounded-xl bg-white/20 border border-white/30 text-gray-800 cursor-pointer outline-none focus:ring-2 focus:ring-white/50"
+          >
+            <option value="" disabled selected>Select a history...</option>
+          </select>
+        </div>
+      </div>
 
       
 
