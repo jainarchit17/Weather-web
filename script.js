@@ -78,6 +78,29 @@ async function fetch5DayForecast(lat, lon){
 
 
 
+function saveRecentSearch(city) {
+    let cities = JSON.parse(localStorage.getItem('recentCities')) || [];
+    if (!cities.includes(city)) {
+        cities.unshift(city);
+        if (cities.length > 5) cities.pop();
+        localStorage.setItem('recentCities', JSON.stringify(cities));
+    }
+    loadRecentSearches();
+}
+
+function loadRecentSearches() {
+    let cities = JSON.parse(localStorage.getItem('recentCities')) || [];
+    if (cities.length > 0) {
+        recentSearchesContainer.classList.remove('hidden');
+        recentDrop.innerHTML = '<option value="" disabled selected>Select from history...</option>';
+        cities.forEach(city => {
+            recentDrop.innerHTML += `<option value="${city}">${city}</option>`;
+        });
+    } else {
+        recentSearchesContainer.classList.add('hidden');
+    }
+}
+
 function showError(msg) {
     errorBox.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-2"></i> ${msg}`;
     errorBox.classList.remove('hidden');
