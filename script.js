@@ -100,7 +100,16 @@ function updateCurrentWeatherUI(data) {
     document.getElementById('currentDesc').textContent = data.weather[0].description;
     document.getElementById('currentIcon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
 
-    
+    // Dynamic background for rainy weather
+    if (data.weather[0].main.toLowerCase().includes('rain')) {
+        mainBody.classList.add('rainy-bg');
+    } else {
+        mainBody.classList.remove('rainy-bg');
+    }
+
+    // Extreme Temp Alert
+    const alertBox = document.getElementById('extremeAlert');
+    data.main.temp > 40 ? alertBox.classList.remove('hidden') : alertBox.classList.add('hidden');
 }
 function updateForecastUI(data) {
     const container = document.getElementById('forecastContainer');
