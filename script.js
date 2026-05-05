@@ -76,7 +76,59 @@ async function fetch5DayForecast(lat, lon){
         showError(error.message);
     }}
 
+function updateCurrentWeatherUI(data) {
+    currentWeatherData = data;
+    document.getElementById('currentWeatherCard').classList.remove('hidden');
+    
+    document.getElementById('cityName').textContent = `${data.name}, ${data.sys.country}`;
+    const dateOpts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString(undefined, dateOpts);
+    
+    let temp = data.main.temp;
+    let unitSym = "°C";
+    if (!isCelsius) {
+        temp = (temp * 9/5) + 32;
+        unitSym = "°F";
+        document.getElementById('toggleUnitBtn').innerHTML = `<i class="fa-solid fa-repeat"></i> Switch to °C`;
+    } else {
+        document.getElementById('toggleUnitBtn').innerHTML = `<i class="fa-solid fa-repeat"></i> Switch to °F`;
+    }
+    
+    document.getElementById('currentTemp').textContent = `${Math.round(temp)}${unitSym}`;
+    document.getElementById('currentWind').textContent = `${data.wind.speed} m/s`;
+    document.getElementById('currentHumidity').textContent = `${data.main.humidity}%`;
+    document.getElementById('currentDesc').textContent = data.weather[0].description;
+    document.getElementById('currentIcon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
 
+    
+}
+function updateForecastUI(data) {
+    const container = document.getElementById('forecastContainer');
+    const grid = document.getElementById('forecastGrid');
+    container.classList.remove('hidden');
+    grid.innerHTML = '';
+
+    const dailyData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+
+    dailyData.forEach(day => {
+        const dateStr = new Date(day.dt_txt).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+        
+        const card = `
+            <div class="glass-card p-4 rounded-xl text-center hover:-translate-y-1 transition-transform duration-300">
+                <p class="font-bold text-lg text-white mb-1">${dateStr}</p>
+                <div class="bg-white/10 rounded-full w-16 h-16 mx-auto flex items-center justify-center my-3 shadow-inner">
+                    <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="icon" class="w-14 h-14 drop-shadow-md">
+                </div>
+                <div class="space-y-2 text-sm font-medium text-white/90">
+                    <p class="bg-white/10 py-1 rounded"><i class="fa-solid fa-temperature-half text-orange-300"></i> ${Math.round(day.main.temp)}°C</p>
+                    <p class="bg-white/10 py-1 rounded"><i class="fa-solid fa-wind text-blue-200"></i> ${day.wind.speed} m/s</p>
+                    <p class="bg-white/10 py-1 rounded"><i class="fa-solid fa-droplet text-blue-300"></i> ${day.main.humidity}%</p>
+                </div>
+            </div>
+        `;
+        grid.innerHTML += card;
+    });
+}
 
 function saveRecentSearch(city) {
     let cities = JSON.parse(localStorage.getItem('recentCities')) || [];
