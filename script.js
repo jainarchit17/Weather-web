@@ -76,3 +76,14 @@ async function fetch5DayForecast(lat, lon){
         showError(error.message);
     }}
 
+
+
+function showError(msg) {
+    errorBox.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-2"></i> ${msg}`;
+    errorBox.classList.remove('hidden');
+    setTimeout(hideError, 5000);
+}
+
+function hideError() {
+    errorBox.classList.add('hidden');
+}
