@@ -63,6 +63,95 @@
           </select>
         </div>
       </div>
+      <div class="lg:col-span-3 space-y-6">
+        <div
+          id="extremeAlert"
+          class="hidden p-4 bg-red-600 border border-red-300 rounded-xl font-bold shadow-lg flex items-center gap-3"
+        >
+          <i class="bx bx-error text-2xl"></i>
+          <span
+            >Extreme Heat Alert! Temperature is above 40°C. Please stay
+            hydrated.</span
+          >
+        </div>
+        <div
+          id="currentWeatherCard"
+          class="hidden glass-card p-8 rounded-2xl shadow-xl relative overflow-hidden"
+        >
+          <div class="absolute top-0 right-0 p-8 opacity-20 text-9xl">
+            <i id="bgIcon" class="fa-solid fa-cloud"></i>
+          </div>
+
+          <div
+            class="relative z-10 flex flex-col md:flex-row justify-between items-center md:items-start gap-6"
+          >
+            <div>
+              <h2
+                id="cityName"
+                class="text-4xl md:text-5xl font-extrabold tracking-tight mb-1"
+              ></h2>
+              <p
+                id="currentDate"
+                class="text-lg text-white/80 mb-6 font-medium"
+              ></p>
+
+              <div class="flex items-end gap-4 mb-6">
+                <span
+                  id="currentTemp"
+                  class="text-6xl md:text-7xl font-black tracking-tighter"
+                ></span>
+                <button
+                  id="toggleUnitBtn"
+                  class="mb-2 text-sm bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors border border-white/30 font-semibold shadow-sm"
+                >
+                  Switch to °F
+                </button>
+              </div>
+
+              <div class="flex flex-wrap gap-6 text-lg font-medium">
+                <div
+                  class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl"
+                >
+                  <i class="fa-solid fa-wind text-blue-200"></i>
+                  <span id="currentWind"></span>
+                </div>
+                <div
+                  class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl"
+                >
+                  <i class="fa-solid fa-droplet text-blue-200"></i>
+                  <span id="currentHumidity"></span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="text-center md:text-right mt-4 md:mt-0 bg-white/10 p-6 rounded-2xl border border-white/20 backdrop-blur-md"
+            >
+              <img
+                id="currentIcon"
+                src=""
+                alt="Weather Icon"
+                class="w-32 h-32 mx-auto md:ml-auto drop-shadow-lg"
+              />
+              <p
+                id="currentDesc"
+                class="capitalize font-bold text-2xl tracking-wide mt-2"
+              ></p>
+            </div>
+          </div>
+        </div>
+
+        <div id="forecastContainer" class="hidden pt-4">
+          <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            <i class="fa-regular fa-calendar-days"></i> 5-Day Extended Forecast
+          </h2>
+          <div
+            id="forecastGrid"
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+          ></div>
+        </div>
+      </div>
+    </div>
 
       
 
