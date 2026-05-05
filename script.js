@@ -40,3 +40,29 @@ document.getElementById('toggleUnitBtn').addEventListener('click',()=>{
     if(currentWeatherData) updateCurrentWeatherUI(currentWeatherData);
 });
 
+async function fetchWeatherByCity(city){
+    hideError();
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=metric`);
+        if(!response.ok) throw new Error("City not found. Please check the spelling and try again.");
+        const data = await response.json();
+        saveRecentSearch(data.name);
+        updateCurrentWeatherUI(data);
+        fetch5DayForecast(data.coord.lat, data.coord.lon);
+    } catch (error) {
+        showError(error.message);
+    }
+}
+
+async function fetchWeatherByCoordinates(lat, lon){
+    hideError();
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API}&units=metric`);
+        if(!response.ok) throw new Error("Unable to fetch weather data for your location.");
+        const data = await response.json();
+        saveRecentSearch(data.name);
+        updateCurrentWeatherUI(data);
+        fetch5DayForecast(lat, lon);
+    } catch (error) {
+        showError(error.message);
+    }}
