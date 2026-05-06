@@ -1,7 +1,5 @@
 # Weather-web
 
-# Weather Dashboard Pro
-
 A responsive, feature-rich weather forecasting application built with Vanilla JavaScript and Tailwind CSS. This application interacts with the OpenWeatherMap API to provide real-time weather conditions and a 5-day extended forecast based on user searches or current geolocation.
 
 ## Features Implemented
@@ -13,7 +11,6 @@ A responsive, feature-rich weather forecasting application built with Vanilla Ja
 * **Temperature Unit Toggle:** Seamlessly switch between Celsius (°C) and Fahrenheit (°F) for current weather data.
 * **Custom Alerts & Error Handling:** * Extreme heat alerts trigger automatically if the temperature exceeds 40°C.
     * Graceful, custom UI error messages replace native `alert()` boxes for invalid cities or API failures.
-* **Dynamic Backgrounds:** The application's UI dynamically adapts (e.g., changes to a rainy gradient) based on the current weather conditions.
 * **Glassmorphism UI:** A sleek, modern, and highly responsive user interface optimized for Desktop, iPad, and Mobile screens using Tailwind CSS.
 
 ## Tech Stack
@@ -29,3 +26,5 @@ A responsive, feature-rich weather forecasting application built with Vanilla Ja
 * Click **Current Location** to allow the browser to detect and show weather for your area.
 * Use the **Select a history...** dropdown to quickly revisit up to 5 previously searched cities.
 * Click **Switch to °F / °C** on the main weather card to toggle temperature units.
+## GitHub Link 
+* `https://github.com/jainarchit17/Weather-web`
