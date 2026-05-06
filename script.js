@@ -1,6 +1,6 @@
 const API_KEY = "092fc96f5f422e4108b224c4f25d85cd"; // PASTE KEY HERE
 let isCelsius = true;
-let currentWeatherData = null;
+let currentData = null;
 
 // DOM Elements
 const cityInput = document.getElementById('cityInput');
@@ -22,7 +22,7 @@ searchBtn.addEventListener('click', () => {
 currentBtn.addEventListener('click', () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            pos => fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude),
+            pos => WeatherByCoords(pos.coords.latitude, pos.coords.longitude),
             () => showError("Location access denied. Please search manually.")
         );
     } else {
@@ -34,7 +34,7 @@ recentDrop.addEventListener('change', (e) => fetchWeatherByCity(e.target.value))
 
 document.getElementById('toggleUnitBtn').addEventListener('click', () => {
     isCelsius = !isCelsius;
-    if(currentWeatherData) updateCurrentWeatherUI(currentWeatherData);
+    if(currentData) updateUI(currentData);
 });
 
 async function fetchWeatherByCity(city) {
@@ -43,35 +43,35 @@ async function fetchWeatherByCity(city) {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
         if (!res.ok) throw new Error("City not found. Check spelling and try again.");
         const data = await res.json();
-        saveRecentSearch(data.name);
-        updateCurrentWeatherUI(data);
-        fetch5DayForecast(data.coord.lat, data.coord.lon);
+        saveSearch(data.name);
+        updateUI(data);
+        fetch5Forecast(data.coord.lat, data.coord.lon);
     } catch (err) { showError(err.message); }
 }
 
-async function fetchWeatherByCoords(lat, lon) {
+async function WeatherByCoords(lat, lon) {
     hideError();
     try {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
         if (!res.ok) throw new Error("Unable to fetch location data.");
         const data = await res.json();
-        saveRecentSearch(data.name);
-        updateCurrentWeatherUI(data);
-        fetch5DayForecast(lat, lon);
+        saveSearch(data.name);
+        updateUI(data);
+        fetch5Forecast(lat, lon);
     } catch (err) { showError(err.message); }
 }
 
-async function fetch5DayForecast(lat, lon) {
+async function fetch5Forecast(lat, lon) {
     try {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
         const data = await res.json();
-        updateForecastUI(data);
+        ForecastUI(data);
     } catch (err) { console.error(err); }
 }
 
-function updateCurrentWeatherUI(data) {
-    currentWeatherData = data;
-    document.getElementById('currentWeatherCard').classList.remove('hidden');
+function updateUI(data) {
+    currentData = data;
+    document.getElementById('currentWeather').classList.remove('hidden');
     
     document.getElementById('cityName').textContent = `${data.name}, ${data.sys.country}`;
     const dateOpts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -105,7 +105,7 @@ function updateCurrentWeatherUI(data) {
     data.main.temp > 40 ? alertBox.classList.remove('hidden') : alertBox.classList.add('hidden');
 }
 
-function updateForecastUI(data) {
+function ForecastUI(data) {
     const container = document.getElementById('forecastContainer');
     const grid = document.getElementById('forecastGrid');
     container.classList.remove('hidden');
@@ -133,7 +133,7 @@ function updateForecastUI(data) {
     });
 }
 
-function saveRecentSearch(city) {
+function saveSearch(city) {
     let cities = JSON.parse(localStorage.getItem('recentCities')) || [];
     if (!cities.includes(city)) {
         cities.unshift(city);
